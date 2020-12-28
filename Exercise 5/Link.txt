@@ -1,0 +1,4 @@
+https://www.kaggle.com/getting-started/54280
+
+ARIMA
+https://machinelearningmastery.com/arima-for-time-series-forecasting-with-python/
