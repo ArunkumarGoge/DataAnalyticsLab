@@ -1,0 +1,11 @@
+download the hadoop VM using the below link.
+Size: 5.5 GB
+
+https://drive.google.com/file/d/1Wr_XwjbCCqxUVl93Ug3Q0ohdsAwJ54MF/view?usp=sharing
+
+User Passwords: 12345
+
+Read the complete tutorial from the below link
+
+https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
+
