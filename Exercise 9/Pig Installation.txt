@@ -1,0 +1,24 @@
+login to hadoop user
+su hadoop
+enter the password 12345
+
+change the directory to /home/hadoop
+Download the pig files to /home/hadoop folder
+wget http://www-us.apache.org/dist/pig/pig-0.16.0/pig-0.16.0.tar.gz
+
+unzip it using the below command. you will see a folder /home/hadoop/pig-0.16.0
+tar -xzf pig-0.16.0.tar.gz 
+
+Add the below lines in .bashrc file. you should be on path /home/hadoop
+# Set PIG_HOME
+export PIG_HOME=/home/hadoop/pig-0.16.0
+export PATH=$PATH:/home/hadoop/pig-0.16.0/bin
+export PIG_CLASSPATH=/home/hadoop/hadoop-3.2.1/etc/hadoop
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/
+
+run the histroy server
+mr-jobhistory-daemon.sh start historyserver
+mr-jobhistory-daemon.sh stop historyserver
+
+run the queries
+A = LOAD'/pig/piginput.txt' USING PigStorage (',') AS (name:chararray,age:int,total:int,avg:float);
