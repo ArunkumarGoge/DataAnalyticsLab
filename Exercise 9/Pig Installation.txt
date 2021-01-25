@@ -9,7 +9,10 @@ wget http://www-us.apache.org/dist/pig/pig-0.16.0/pig-0.16.0.tar.gz
 unzip it using the below command. you will see a folder /home/hadoop/pig-0.16.0
 tar -xzf pig-0.16.0.tar.gz 
 
-Add the below lines in .bashrc file. you should be on path /home/hadoop
+Add the below lines in .bashrc file. you should be on path /home/hadoop/
+
+sudo gedit .bashrc
+
 # Set PIG_HOME
 export PIG_HOME=/home/hadoop/pig-0.16.0
 export PATH=$PATH:/home/hadoop/pig-0.16.0/bin
