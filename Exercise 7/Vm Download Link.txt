@@ -9,3 +9,17 @@ Read the complete tutorial from the below link
 
 https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
 
+
+
+_______________________________
+CloudEra Distribution Hadoop
+-------------------------------
+
+https://drive.google.com/file/d/1EqKcZ7zXAJH-WGS3XMe2s3uOw4mkmgKj/view?usp=drivesdk
+
+open terminal and simply type startCDH.sh to start the hadoop environment. Everything is pre installed
+
+After performing "startCHD.sh"
+to work with pig environment type "pig" you'll get grunt shell
+to work with habase environment type "hbase shell"
+to work with hive environment type "hive"
