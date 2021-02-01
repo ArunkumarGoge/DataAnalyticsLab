@@ -1,0 +1,16 @@
+create 'employee','Name','id','designation','salary','department'
+list
+disable 'employee'
+scan 'employee'
+create 'employee2','Name','id'
+disable_all 'e.*'
+create 'student','name','age','course'
+put 'student','Arun','name:fullname','ArunkumarGopu','name:lastname','Gopu'
+put 'student','Arun','age:presentage','20'
+put 'student','Arun','course:backlog','electrical machines','course:online','nptel'
+scan 'student'
+count 'student'
+put 'student','Arun', 'name:fullname','Arunkumar G'
+
+
+
