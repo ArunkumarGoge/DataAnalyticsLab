@@ -1,0 +1,40 @@
+HiveQL DDL statements
+CREATE DATABASE/SCHEMA, TABLE, VIEW, FUNCTION, INDEX
+DROP DATABASE/SCHEMA, TABLE, VIEW, INDEX
+TRUNCATE TABLE
+ALTER DATABASE/SCHEMA, TABLE, VIEW
+SHOW DATABASES/SCHEMAS, TABLES, TBLPROPERTIES, VIEWS, PARTITIONS, FUNCTIONS, INDEX[ES], COLUMNS, CREATE TABLE
+DESCRIBE DATABASE/SCHEMA, table_name, view_name, materialized_view_name
+
+______________
+SQL Commands
+---------------
+create schema vrsec;
+show databases;
+drop database if exists vrsec;
+
+create database student;
+use student;
+show tables;
+create table marks(regno string, sub1 int, sub2 int, sub3 int);
+describe marks;
+alter table marks rename to subjectmarks;
+alter table subjectmarks add columns(sub4 int);
+describe subjectmarks;
+alter table subjectmarks replace columns(name string, sub4 int);
+
+create table studentdetails(id string, name string, age int) row format delimited fields terminaded by ',' stored as textfile;
+
+load data inpath '/home/hadoop/Desktop/hivefile.txt' overwrite into table studentdetails;
+
+select * from studentdetails;
+
+select * from studentdetails where id='001';
+
+select * from studentdetails sort by id;
+
+select * from studentdetails order by name;
+
+create view stu_rank as select * from studentmarks where total>300;
+
+drop view stu_rank;
