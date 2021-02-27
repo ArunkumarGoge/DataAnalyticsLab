@@ -1,0 +1,199 @@
+hadoop@hadoop-laptop:~$ hive
+
+hive> show databases;
+OK
+default
+Time taken: 3.602 seconds
+
+hive> create schema vrsec;
+OK
+Time taken: 0.082 seconds
+
+hive> create database vrsec;
+Failed with exception Database vrsec already exists
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask
+
+hive> drop database if exists vrsec;
+OK
+Time taken: 0.838 seconds
+
+hive> create database student;      
+OK
+Time taken: 0.024 seconds
+
+hive> use student;
+OK
+Time taken: 0.0070 seconds
+
+hive> show tables;
+OK
+Time taken: 0.074 seconds
+
+hive> create table marks(regno string, sub1 int, sub2 int, sub3 int);
+OK
+Time taken: 0.191 seconds
+
+hive> describe marks;
+OK
+regno	string	
+sub1	int	
+sub2	int	
+sub3	int	
+Time taken: 0.139 seconds
+
+hive> alter table marks rename to subjectmarks;
+OK
+Time taken: 0.349 seconds
+
+hive> describe marks;                          
+OK
+Table marks does not exist	 	 
+Time taken: 0.064 seconds
+
+hive> describe subjectmarks;
+OK
+regno	string	
+sub1	int	
+sub2	int	
+sub3	int	
+Time taken: 0.079 seconds
+
+hive> show tables;
+OK
+subjectmarks
+Time taken: 0.061 seconds
+
+hive> alter table subjectmarks add columns(sub4 int);
+OK
+Time taken: 0.087 seconds
+
+hive> describe subjectmarks;                         
+OK
+regno	string	
+sub1	int	
+sub2	int	
+sub3	int	
+sub4	int	
+Time taken: 0.069 seconds
+
+hive> alter table subjectmarks replace columns(name string, total int);
+OK
+Time taken: 0.063 seconds
+
+hive> describe subjectmarks;                                           
+OK
+name	string	
+total	int	
+Time taken: 0.051 seconds
+
+
+hive> create table studentdetails(id string, name string, age int) row format delimited fields terminated by ',' stored as textfile;
+OK
+Time taken: 0.051 seconds
+
+hive> show tables;
+OK
+studentdetails
+subjectmarks
+Time taken: 0.047 seconds
+
+hadoop@hadoop-laptop:~/Desktop$ touch hivefile.txt
+hadoop@hadoop-laptop:~/Desktop$ nano hivefile.txt
+hadoop@hadoop-laptop:~/Desktop$ cat hivefile.txt
+001,arun,30
+002,siddhu,27
+003,magilan,35
+004,mark,39
+hadoop@hadoop-laptop:~/Desktop$ hdfs dfs -put hivefile.txt /hivefile.txt
+
+hive> load data inpath '/hivefile.txt' overwrite into table studentdetails;                    
+Loading data to table student.studentdetails
+rmr: DEPRECATED: Please use 'rm -r' instead.
+Deleted /user/hive/warehouse/student.db/studentdetails
+OK
+Time taken: 0.235 seconds
+
+hive> select * from studentdetails;
+OK
+001	arun	30
+002	siddhu	27
+003	magilan	35
+004	mark	39
+Time taken: 0.162 seconds
+
+hive> select * from studentdetails where id='001';
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1613923031783_0001, Tracking URL = http://localhost:8088/proxy/application_1613923031783_0001/
+Kill Command = /home/hadoop/Training/CDH4/hadoop-2.0.0-cdh4.0.0/bin/hadoop job  -Dmapred.job.tracker=localhost:10040 -kill job_1613923031783_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2021-02-21 11:08:28,236 Stage-1 map = 0%,  reduce = 0%
+2021-02-21 11:08:32,474 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.53 sec
+MapReduce Total cumulative CPU time: 530 msec
+Ended Job = job_1613923031783_0001
+MapReduce Jobs Launched: 
+Job 0: Map: 1   Accumulative CPU: 0.53 sec   HDFS Read: 0 HDFS Write: 0 SUCESS
+Total MapReduce CPU Time Spent: 530 msec
+OK
+001	arun	30
+Time taken: 9.764 seconds
+
+hive> select * from studentdetails sort by id;
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapred.reduce.tasks=<number>
+Starting Job = job_1613923031783_0002, Tracking URL = http://localhost:8088/proxy/application_1613923031783_0002/
+Kill Command = /home/hadoop/Training/CDH4/hadoop-2.0.0-cdh4.0.0/bin/hadoop job  -Dmapred.job.tracker=localhost:10040 -kill job_1613923031783_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-02-21 11:08:46,430 Stage-1 map = 0%,  reduce = 0%
+2021-02-21 11:08:50,622 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.64 sec
+2021-02-21 11:08:51,659 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.64 sec
+2021-02-21 11:08:52,713 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.62 sec
+MapReduce Total cumulative CPU time: 1 seconds 620 msec
+Ended Job = job_1613923031783_0002
+MapReduce Jobs Launched: 
+Job 0: Map: 1  Reduce: 1   Accumulative CPU: 1.62 sec   HDFS Read: 0 HDFS Write: 0 SUCESS
+Total MapReduce CPU Time Spent: 1 seconds 620 msec
+OK
+001	arun	30
+002	siddhu	27
+003	magilan	35
+004	mark	39
+Time taken: 11.034 seconds
+
+hive> select * from studentdetails order by name;
+Total MapReduce jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapred.reduce.tasks=<number>
+Starting Job = job_1613923031783_0003, Tracking URL = http://localhost:8088/proxy/application_1613923031783_0003/
+Kill Command = /home/hadoop/Training/CDH4/hadoop-2.0.0-cdh4.0.0/bin/hadoop job  -Dmapred.job.tracker=localhost:10040 -kill job_1613923031783_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-02-21 11:09:09,729 Stage-1 map = 0%,  reduce = 0%
+2021-02-21 11:09:12,863 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.51 sec
+2021-02-21 11:09:13,932 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.51 sec
+2021-02-21 11:09:14,966 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 0.51 sec
+2021-02-21 11:09:16,016 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 1.85 sec
+MapReduce Total cumulative CPU time: 1 seconds 850 msec
+Ended Job = job_1613923031783_0003
+MapReduce Jobs Launched: 
+Job 0: Map: 1  Reduce: 1   Accumulative CPU: 1.85 sec   HDFS Read: 0 HDFS Write: 0 SUCESS
+Total MapReduce CPU Time Spent: 1 seconds 850 msec
+OK
+001	arun	30
+003	magilan	35
+004	mark	39
+002	siddhu	27
+Time taken: 11.05 seconds
