@@ -15,7 +15,7 @@ _______________________________
 CloudEra Distribution Hadoop
 -------------------------------
 
-https://drive.google.com/file/d/1EqKcZ7zXAJH-WGS3XMe2s3uOw4mkmgKj/view?usp=drivesdk
+https://1drv.ms/u/s!AkF9_7XC6TW2gYMSWvRmV-JylSDHEQ?e=ES91HF
 
 open terminal and simply type startCDH.sh to start the hadoop environment. Everything is pre installed
 
